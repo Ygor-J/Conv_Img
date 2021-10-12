@@ -13,7 +13,7 @@ typedef struct dimension{
 int **allocate_matrix(int width, int height){
     int **matrix = malloc(height * sizeof(int *));
     for(int i=0; i<height; i++){
-        matrix[i] = calloc(width, sizeof(int));
+        matrix[i] = calloc(3*width, sizeof(int));
     }
     return matrix;
 }
@@ -23,12 +23,13 @@ int **allocate_matrix(int width, int height){
  * corresponding to the image and modifies the values
  * stored in the char *type pointer and Dimension *D pointer.
  * */
-int **read_file(char *type, Dimension *D){
+int **read_file(char *type, int *limit, Dimension *D){
     scanf("%s", type);
     scanf("%d %d", &(D->width), &(D->height));
+    scanf("%d", limit);
     int **matrix = allocate_matrix(D->width, D->height);
     for(int i=0; i<D->height; i++){
-        for(int j=0;j<D->width; j++){
+        for(int j=0;j<3*(D->width); j++){
             scanf("%d", &matrix[i][j]);
         }
     }
@@ -40,17 +41,20 @@ int **read_file(char *type, Dimension *D){
  * */
 void print_matrix(int **matrix, int width, int height){
     for(int i=0; i<height; i++){
-        for(int j=0; j<width; j++){
+        for(int j=0; j<3*width; j++){
             printf("%d ", matrix[i][j]);
         }
         printf("\n");
     }
 }
 
+/**
+ * Applies convolution using kernel
+ * */
 int **apply_convolution(int **matrix, Dimension D, int kernel[][3]){
     int **conv_matrix = allocate_matrix(D.width, D.height);
     for(int i=1; i<D.height-1; i++){
-        for(int j=3; j<D.width-3; j++){
+        for(int j=3; j<3*(D.width-3); j++){
             int value = 0;
             for(int k=0; k<3; k++){
                 for(int l=0; l<3; l++){
@@ -70,13 +74,14 @@ int **apply_convolution(int **matrix, Dimension D, int kernel[][3]){
 
 int main(){
     char *type = malloc(3 * sizeof(char));
+    int limit;
     Dimension *D = malloc(sizeof(Dimension));
 
-    int **matrix = read_file(type, D);
+    int **matrix = read_file(type, &limit, D);
     int kernel[3][3] = {
-        {-1, -1, -1},
-        {-1, 8, -1},
-        {-1, -1, -1}
+        {0, -1, 0},
+        {-1, 5, -1},
+        {0, -1, 0}
     };
 
     int **conv_matrix = apply_convolution(matrix, *D, kernel);
@@ -84,9 +89,7 @@ int main(){
 
     printf("%s\n", type);
     printf("%d %d\n", D->width, D->height);
-    printf("255\n");
+    printf("%d\n", limit);
     print_matrix(conv_matrix, D->width, D->height);
-    // applies convolution
-    // returns file with applied convolution
     return 0;
 }
