@@ -13,7 +13,7 @@ typedef struct dimension{
 int **allocate_matrix(int width, int height){
     int **matrix = malloc(height * sizeof(int *));
     for(int i=0; i<height; i++){
-        matrix[i] = malloc(width * sizeof(int));
+        matrix[i] = calloc(width, sizeof(int));
     }
     return matrix;
 }
@@ -81,7 +81,10 @@ int main(){
 
     int **conv_matrix = apply_convolution(matrix, *D, kernel);
 
-    printf("\n");
+
+    printf("%s\n", type);
+    printf("%d %d\n", D->width, D->height);
+    printf("255\n");
     print_matrix(conv_matrix, D->width, D->height);
     // applies convolution
     // returns file with applied convolution
