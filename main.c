@@ -47,11 +47,42 @@ void print_matrix(int **matrix, int width, int height){
     }
 }
 
+int **apply_convolution(int **matrix, Dimension D, int kernel[][3]){
+    int **conv_matrix = allocate_matrix(D.width, D.height);
+    for(int i=1; i<D.height-1; i++){
+        for(int j=3; j<D.width-3; j++){
+            int value = 0;
+            for(int k=0; k<3; k++){
+                for(int l=0; l<3; l++){
+                    value += kernel[k][l] * matrix[i-1+k][j-3+3*k];
+                }
+            }
+            if(value > 255){
+                value = 255;
+            }else if(value < 0){
+                value = 0;
+            }
+            conv_matrix[i][j] = value;
+        }
+    }
+    return conv_matrix;
+}
+
 int main(){
     char *type = malloc(3 * sizeof(char));
     Dimension *D = malloc(sizeof(Dimension));
 
     int **matrix = read_file(type, D);
+    int kernel[3][3] = {
+        {-1, -1, -1},
+        {-1, 8, -1},
+        {-1, -1, -1}
+    };
+
+    int **conv_matrix = apply_convolution(matrix, *D, kernel);
+
+    printf("\n");
+    print_matrix(conv_matrix, D->width, D->height);
     // applies convolution
     // returns file with applied convolution
     return 0;
