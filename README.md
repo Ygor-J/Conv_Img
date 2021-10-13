@@ -7,13 +7,15 @@ Support for kernel of any size. ** Sets black borders
  
 Img - No Filter  
 ![Img - No Filter](https://github.com/Ygor-J/Conv_Img/blob/master/tests/bike.png)  
-Img - Emboss Filter  
+Img - Blur Filter  
 ![Img - Emboss Filter](https://github.com/Ygor-J/Conv_Img/blob/master/img.png)
 
 ```
-emboss_filter = [
-     [-2, -1, 0],
-     [-1, 1, 1],
-     [0, 1, 2]
-  ]
+blur_filter = [
+    [0.04, 0.04, 0.04, 0.04, 0.04], 
+    [0.04, 0.04, 0.04, 0.04, 0.04], 
+    [0.04, 0.04, 0.04, 0.04, 0.04], 
+    [0.04, 0.04, 0.04, 0.04, 0.04], 
+    [0.04, 0.04, 0.04, 0.04, 0.04]
+ ]
 ```
