@@ -3,5 +3,6 @@
 
 Just playing around with convolution/kernels and Netpbm file formats.  
 Only able to apply convolution to the Portable Pixmap Format (PPM), otherwise known by its magic number P3 or P6 for binary.  
-Support only for 3x3 kernels so far.  
+Support for kernel of any size. ** Sets black borders
+ 
 
