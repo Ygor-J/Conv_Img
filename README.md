@@ -10,7 +10,7 @@ Img - Emboss Filter
 ![Img - Emboss Filter](https://github.com/Ygor-J/Conv_Img/blob/master/img.png)
 
 ```
-filtro_emboss = [
+emboss_filter = [
      [-2, -1, 0],
      [-1, 1, 1],
      [0, 1, 2]
