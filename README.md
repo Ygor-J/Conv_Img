@@ -5,4 +5,15 @@ Just playing around with convolution/kernels and Netpbm file formats.
 Only able to apply convolution to the Portable Pixmap Format (PPM), otherwise known by its magic number P3 or P6 for binary.  
 Support for kernel of any size. ** Sets black borders
  
+Img - No Filter  
+![Img - No Filter](https://github.com/Ygor-J/Conv_Img/blob/master/tests/bike.png)  
+Img - Emboss Filter  
+![Img - Emboss Filter](https://github.com/Ygor-J/Conv_Img/blob/master/img.png)
 
+```
+emboss_filter = [
+     [-2, -1, 0],
+     [-1, 1, 1],
+     [0, 1, 2]
+  ]
+```
